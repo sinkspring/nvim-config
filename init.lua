@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 local function gh(repo) return 'https://github.com/' .. repo end
 
 vim.pack.add({
-  gh('maxmx03/solarized.nvim'),                        -- colorscheme
+	{ src = gh('catppuccin/nvim'), name = 'catppuccin' }, -- colorscheme
   gh('nvim-tree/nvim-web-devicons'),                   -- file icons
   gh('nvim-lualine/lualine.nvim'),                     -- statusline + buffer bar
   gh('nvim-tree/nvim-tree.lua'),                       -- file tree
@@ -103,9 +103,78 @@ vim.pack.add({
 -- =============================================================================
 
 -- Colorscheme -----------------------------------------------------------------
-vim.o.background = 'dark' -- 'light' switches to Solarized Light
-require('solarized').setup({})
-vim.cmd.colorscheme('solarized')
+require("catppuccin").setup({
+    flavour = "auto", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+    transparent_background = false, -- disables setting the background color.
+    float = {
+        transparent = false, -- enable transparent floating windows
+        solid = false, -- use solid styling for floating windows, see |winborder|
+    },
+    term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+    dim_inactive = {
+        enabled = false, -- dims the background color of inactive window
+        shade = "dark",
+        percentage = 0.15, -- percentage of the shade to apply to the inactive window
+    },
+    no_italic = false, -- Force no italic
+    no_bold = false, -- Force no bold
+    no_underline = false, -- Force no underline
+    styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+        comments = { "italic" }, -- Change the style of comments
+        conditionals = { "italic" },
+        loops = {},
+        functions = {},
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+        operators = {},
+        -- miscs = {}, -- Uncomment to turn off hard-coded styles
+    },
+    lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+        virtual_text = {
+            errors = { "italic" },
+            hints = { "italic" },
+            warnings = { "italic" },
+            information = { "italic" },
+            ok = { "italic" },
+        },
+        underlines = {
+            errors = { "underline" },
+            hints = { "underline" },
+            warnings = { "underline" },
+            information = { "underline" },
+            ok = { "underline" },
+        },
+        inlay_hints = {
+            background = true,
+        },
+    },
+    color_overrides = {},
+    custom_highlights = {},
+    auto_integrations = true,
+    integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        notify = false,
+        mini = {
+            enabled = true,
+            indentscope_color = "",
+        },
+        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+    },
+})
+
+-- setup must be called before loading
+vim.cmd.colorscheme('catppuccin')
 
 -- Statusline and buffer bar ---------------------------------------------------
 require('lualine').setup({

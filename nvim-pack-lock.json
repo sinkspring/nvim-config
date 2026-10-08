@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "catppuccin": {
+      "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
+      "src": "https://github.com/catppuccin/nvim"
+    },
     "coc.nvim": {
       "rev": "9b05543cf78fc6aa45c26a4eeac86600615aacc4",
       "src": "https://github.com/neoclide/coc.nvim",
