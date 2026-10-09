@@ -104,13 +104,21 @@ vim.pack.add({
 
 -- Colorscheme -----------------------------------------------------------------
 require('catppuccin').setup({
-  flavour = 'auto',  -- latte, frappe, macchiato, mocha
-  background = { light = 'latte', dark = 'macchiato' }, -- :set background=light / dark
+  flavour = 'auto',
+  background = { light = 'latte', dark = 'macchiato' },
   term_colors = true,
   styles = {
     comments = { 'italic' },
     conditionals = {},
+    miscs = {}, -- removes Catppuccin's built-in italics (HTML attributes, modules)
   },
+  custom_highlights = function(c)
+    return {
+      -- definitions only; calls use @function.call, which stays regular
+      ['@function'] = { fg = c.blue, style = { 'bold' } },
+      ['@function.method'] = { fg = c.blue, style = { 'bold' } },
+    }
+  end,
   lsp_styles = {
     underlines = {
       errors = { 'undercurl' },
@@ -120,8 +128,7 @@ require('catppuccin').setup({
     },
   },
 })
-vim.cmd.colorscheme('catppuccin')
-
+vim.cmd.colorscheme "catppuccin-nvim"
 -- Statusline and buffer bar ---------------------------------------------------
 require('lualine').setup({
   options = { theme = 'auto', globalstatus = true },
